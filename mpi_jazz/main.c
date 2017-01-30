@@ -1,13 +1,41 @@
-#include "mpi.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-int main( int argc, char *argv[])
+#define LIMIT 200000
+
+int * primeSiethe()
 {
-    int size, rank;
-    MPI_Init( &argc, &argv);
-    MPI_Comm_rank( MPI_COMM_WORLD, &rank);
-    MPI_Comm_size( MPI_COMM_WORLD, &size);
-    printf("I am  %d or %d\n", rank, size);
-    MPI_Finalize();
+    int i,j;
+    int *primes;
+    int z = 1;
+    primes = malloc(sizeof(int)*LIMIT);
+    for (i=2;i<LIMIT;i++)
+    {
+        primes[i]=1;
+    }
+    for (i=2;i<LIMIT;i++)
+    {
+        if (primes[i]) 
+        {
+            for (j=i;i*j<LIMIT;j++)
+            {
+                primes[i*j]=0;
+            }
+        }
+    }
+    return primes;
+}
+
+
+int main()
+{
+   int *primes = primeSiethe();
+   for (int i = 0; i < 200000; i++)
+   {
+       if (primes[i])
+       {
+           printf("I am %d and I am prime\n", i);
+       }
+   }
     return 0;
 }
