@@ -5,10 +5,11 @@
 
 #define MAX 2000000
 
-/*
- * Prints all primes less than MAX using the Sieve of Eratosthenes.
- */
-
+/******************************************************************************************************
+ ** Purpose: Generates an array containing all primes less than MAX using the Sieve of Eratosthenes. **
+ ** Return : Returns Memory address of primes array. Index is number. 1 if prime 0 if not.           **
+ ** Params : None.                                                                                   **
+ *****************************************************************************************************/
 unsigned * primeGenerator()
 {
     unsigned i, j;
@@ -29,7 +30,13 @@ unsigned * primeGenerator()
    return primes;
 }
 
-
+/******************************************************************************************************
+** Purpose: Take a number and convert it to a int array.                                             **
+** Return : Returns Memory address of int array.                                                     **
+** Params:                                                                                           **
+**  1) int number -> Number to be converted to int array.                                            **
+**  2) int n      -> Length of int array.                                                            **                  
+******************************************************************************************************/
 int * toIntBuffer(int number, int n)
 {
     int i;
@@ -41,6 +48,12 @@ int * toIntBuffer(int number, int n)
     return buffer;
 }
 
+/******************************************************************************************************
+** Purpose: Determine if the  number is happy.                                                       **
+** Return : Returns 1 if happy, 0 if not happy.                                                      **
+** Params :                                                                                          ** 
+**  1) int seq -> "sequnce", Number who's happiness is in question.                                  ** 
+******************************************************************************************************/
 int isHappy(int seq)
 {
     int i;
@@ -53,6 +66,7 @@ int isHappy(int seq)
         {
             seq += pow(buffer[i], 2); 
         }
+        free(buffer);
         if(seq == 1)
         {
             return 1;
@@ -61,6 +75,9 @@ int isHappy(int seq)
     return 0;
 }
 
+/******************************************************************************************************
+** Main Function                                                                                     **
+******************************************************************************************************/
 int main()
 {
     unsigned * primes = primeGenerator();
@@ -71,10 +88,5 @@ int main()
             printf("Happy Prime: %d\n", i);
         }
     }
-
-    
-    
-   
-
     return 0;
 }
