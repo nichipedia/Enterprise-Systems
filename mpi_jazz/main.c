@@ -29,25 +29,30 @@ unsigned * primeGenerator()
    return primes;
 }
 
-char *toCharBuffer(int number)
+
+int * toIntBuffer(int number, int n)
 {
-    int n = log10(number) + 1;
-    char *buffer = malloc(sizeof(char)*n);
-    sprintf(buffer, "%d", number);
+    int i;
+    int *buffer = malloc(sizeof(int)*n);
+    for ( i = 0; i < n; ++i, number /= 10 )
+    {
+        buffer[i] = number % 10;
+    }
     return buffer;
 }
 
-int isHappy(int number)
+int isHappy(int seq)
 {
-    int seq, i;
+    int i;
     while(seq != 4)
     {
-        char *buffer = toCharBuffer(number);
-        for (i, seq = 0; i < strlen(buffer); i++)
+        int n = log10(seq) + 1;
+        int *buffer = toIntBuffer(seq, n);
+        seq = 0;
+        for (i = 0; i < n; i++)
         {
             seq += pow(buffer[i], 2); 
         }
-        free(buffer);
         if(seq == 1)
         {
             return 1;
@@ -58,14 +63,18 @@ int isHappy(int number)
 
 int main()
 {
-    //unsigned * primes = primeGenerator();
-    if(isHappy(6))
-    {
-        printf("yas\n");
+    unsigned * primes = primeGenerator();
+    for (int i = 2; i < MAX; i++)
+    {  
+        if (isHappy(i) && primes[i])
+        {
+            printf("Happy Prime: %d\n", i);
+        }
     }
-    else 
-    {
-        printf("oh boi\n");
-    }
+
+    
+    
+   
+
     return 0;
 }
