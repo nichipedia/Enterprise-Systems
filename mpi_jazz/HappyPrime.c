@@ -3,6 +3,7 @@
 #include <math.h>
 #include <string.h>
 #include <time.h>
+#include <mpi.h>
 
 unsigned MAX;
 
@@ -88,24 +89,50 @@ short * happyGenerator()
 /******************************************************************************************************
 ** Main Function                                                                                     **
 ******************************************************************************************************/
-int main()
+int main(int argc, char** argv)
 {
-   
-    printf("Welcome to Happy Prime Generator!\n");
-    printf("Please enter your number : ");
-    scanf("%d", &MAX);
-    printf("\nDetermining Happy Primes up to %d\n", MAX);
-    clock_t begin = clock();
-    short * primes = primeGenerator();
-    for (int i = 2; i < MAX; i++)
-    {  
-        if (primes[i] && isHappy(i))
-        {
-            printf("Happy Prime: %d\n", i);
+    MPI_Init(NULL, NULL);
+    int size, rank;
+    MPI_Comm_size(MPI_COMM_WORLD, &size);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    if (rank == 0)
+    {
+        printf("Welcome to Happy Prime Generator!\n");
+        printf("Please enter your number : ");
+        scanf("%d", &MAX);
+        printf("\nDetermining Happy Primes up to %d\n", MAX);
+        MPI_Bcast(&MAX, 1, MPI_UNSIGNED, 0, MPI_COMM_WORLD);
+        clock_t begin = clock();
+        short * primes = primeGenerator();
+        unsigned n = (MAX/size);
+        for (int i = 2; i < n; i++)
+        {  
+            if (primes[i] && isHappy(i))
+            {
+                printf("Happy Prime: %d\n", i);
+            }
         }
+        MPI_Send(&n, 1, MPI_UNSIGNED, (rank+1)%size, 0, MPI_COMM_WORLD);
+        MPI_Recv(&n, 1, MPI_UNSIGNED, size - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        clock_t end = clock();
+        double exeTime = (double)(end - begin) / CLOCKS_PER_SEC;
+        printf("Execution Time: %.2f seconds\n", exeTime);
     }
-    clock_t end = clock();
-    double exeTime = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("Execution Time: %.2f seconds\n", exeTime);
+    else
+    {
+        MPI_Recv(&MAX, 1, MPI_UNSIGNED, rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        short * primes = primeGenerator();
+        unsigned n = (MAX/size);
+        for (int i = ((rank*n)+1); i < ((rank+1)*n); i++)
+        {  
+            if (primes[i] && isHappy(i))
+            {
+                printf("Happy Prime: %d\n", i);
+            }
+        }
+        MPI_Send(&n, 1, MPI_UNSIGNED, (rank+1)%size, 0, MPI_COMM_WORLD);
+        MPI_Recv(&n, 1, MPI_UNSIGNED, rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+    }
+    MPI_Finalize();
     return 0;
 }
