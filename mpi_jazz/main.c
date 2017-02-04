@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <string.h>
+#include <time.h>
 
 unsigned MAX;
 
@@ -89,6 +90,7 @@ short * happyGenerator()
 ******************************************************************************************************/
 int main()
 {
+    clock_t begin = clock();
     printf("Welcome to Happy Prime Generator!\n");
     printf("Please enter your number : ");
     scanf("%d", &MAX);
@@ -101,5 +103,8 @@ int main()
             printf("Happy Prime: %d\n", i);
         }
     }
+    clock_t end = clock();
+    double exeTime = (double)(end - begin) / CLOCKS_PER_SEC;
+    printf("Execution Time: %.2f seconds\n", exeTime);
     return 0;
 }
