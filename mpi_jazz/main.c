@@ -3,17 +3,17 @@
 #include <math.h>
 #include <string.h>
 
-#define MAX 2000000
+unsigned MAX;
 
-/******************************************************************************************************
- ** Purpose: Generates an array containing all primes less than MAX using the Sieve of Eratosthenes. **
- ** Return : Returns Memory address of primes array. Index is number. 1 if prime 0 if not.           **
- ** Params : None.                                                                                   **
- *****************************************************************************************************/
-unsigned * primeGenerator()
+/*****************************************************************************************************
+** Purpose: Generates an array containing all primes less than MAX using the Sieve of Eratosthenes. **
+** Return : Returns Memory address of primes array. Index is number. 1 if prime 0 if not.           **
+** Params : None.                                                                                   **
+*****************************************************************************************************/
+short * primeGenerator()
 {
     unsigned i, j;
-    unsigned * primes = malloc(sizeof(unsigned)*MAX);
+    short * primes = malloc(sizeof(short)*MAX);
     for (unsigned i = 0; i < MAX; i++)
     {
         primes[i] = 1;
@@ -31,21 +31,21 @@ unsigned * primeGenerator()
 }
 
 /******************************************************************************************************
-** Purpose: Take a number and convert it to a int array.                                             **
-** Return : Returns Memory address of int array.                                                     **
-** Params:                                                                                           **
-**  1) int number -> Number to be converted to int array.                                            **
-**  2) int n      -> Length of int array.                                                            **                  
+** Purpose: Determine happy sum of a number for exp.. happySum(123) = 1^2 + 2^2 + 3^2                **
+** Return : Happy sum of number passed in..                                                          **
+** Params :                                                                                          ** 
+**  1) int number -> Number to find happy sum                                                        ** 
 ******************************************************************************************************/
-int * toIntBuffer(int number, int n)
+int happySum(int number)
 {
-    int i;
-    int *buffer = malloc(sizeof(int)*n);
-    for ( i = 0; i < n; ++i, number /= 10 )
+    int sum = 0;
+    int n = log10(number) + 1;
+    while (number)
     {
-        buffer[i] = number % 10;
+        sum += (number%10) * (number%10);
+        number /= 10;
     }
-    return buffer;
+    return sum;
 }
 
 /******************************************************************************************************
@@ -56,17 +56,9 @@ int * toIntBuffer(int number, int n)
 ******************************************************************************************************/
 int isHappy(int seq)
 {
-    int i;
     while(seq != 4)
     {
-        int n = log10(seq) + 1;
-        int *buffer = toIntBuffer(seq, n);
-        seq = 0;
-        for (i = 0; i < n; i++)
-        {
-            seq += pow(buffer[i], 2); 
-        }
-        free(buffer);
+        seq = happySum(seq);
         if(seq == 1)
         {
             return 1;
@@ -75,15 +67,36 @@ int isHappy(int seq)
     return 0;
 }
 
+short * happyGenerator()
+{
+    int n = log10(MAX) + 2;
+    int limit = 81*n;
+    int seq;
+    short * happyRef = malloc(sizeof(short)*limit);
+    for (int i = 0; i < limit; i++)
+    {
+        happyRef[i] = 0;
+    }
+    for (int i = 2; i < limit; i++)
+    {
+        happyRef[i] = isHappy(i);
+    }
+    return happyRef;
+}
+
 /******************************************************************************************************
 ** Main Function                                                                                     **
 ******************************************************************************************************/
 int main()
 {
-    unsigned * primes = primeGenerator();
+    printf("Welcome to Happy Prime Generator!\n");
+    printf("Please enter your number : ");
+    scanf("%d", &MAX);
+    printf("\nDetermining Happy Primes up to %d\n", MAX);
+    short * primes = primeGenerator();
     for (int i = 2; i < MAX; i++)
     {  
-        if (isHappy(i) && primes[i])
+        if (primes[i] && isHappy(i))
         {
             printf("Happy Prime: %d\n", i);
         }
