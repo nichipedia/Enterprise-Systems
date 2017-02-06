@@ -41,7 +41,6 @@ short * primeGenerator()
 int happySum(int number)
 {
     int sum = 0;
-    int n = log10(number) + 1;
     while (number)
     {
         sum += (number%10) * (number%10);
@@ -58,7 +57,7 @@ int happySum(int number)
 ******************************************************************************************************/
 int isHappy(int seq)
 {
-    while(seq > 4)
+    while(seq > 6)
     {
         seq = happySum(seq);
     }

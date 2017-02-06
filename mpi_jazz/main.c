@@ -66,9 +66,8 @@ int isHappy(int seq)
 
 short * happyGenerator()
 {
-    int n = log10(MAX) + 2;
+    int n = log10(MAX) + 1;
     int limit = 81*n;
-    int seq;
     short * happyRef = malloc(sizeof(short)*limit);
     for (int i = 0; i < limit; i++)
     {
@@ -86,6 +85,8 @@ short * happyGenerator()
 ******************************************************************************************************/
 int main()
 {
+
+ 
    
     printf("Welcome to Happy Prime Generator!\n");
     printf("Please enter your number : ");
@@ -93,9 +94,10 @@ int main()
     printf("\nDetermining Happy Primes up to %d\n", MAX);
     clock_t begin = clock();
     short * primes = primeGenerator();
+    short * happys = happyGenerator();
     for (int i = 2; i < MAX; i++)
     {  
-        if (primes[i] && isHappy(i))
+        if (primes[i] && happys[happySum(i)])
         {
             printf("Happy Prime: %d\n", i);
         }
