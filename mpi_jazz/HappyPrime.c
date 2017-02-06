@@ -58,15 +58,11 @@ int happySum(int number)
 ******************************************************************************************************/
 int isHappy(int seq)
 {
-    while(seq != 4)
+    while(seq > 4)
     {
         seq = happySum(seq);
-        if(seq == 1)
-        {
-            return 1;
-        }
     }
-    return 0;
+    return seq == 1;
 }
 
 short * happyGenerator()
