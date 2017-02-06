@@ -66,7 +66,7 @@ int isHappy(int seq)
 
 short * happyGenerator()
 {
-    int n = log10(MAX) + 2;
+    int n = log10(MAX) + 1;
     int limit = 81*n;
     int seq;
     short * happyRef = malloc(sizeof(short)*limit);
