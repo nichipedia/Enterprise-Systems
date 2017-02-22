@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<emr>
+    <paitient>
+        <paitient-info>
+            <name>
+                Monica Latte
+            </name>
+            <address>
+                4444 Coffee Ave. Chocolate California 
+            </address>
+            <paitient-id>
+                0000-44444
+            </paitient-id>
+            <dob>
+                04/04/1950
+            </dob>
+            <gender>
+                Female
+            </gender>
+            <contact-by>
+                Phone
+            </contact-by>
+            <ssn>
+                444-444-4444
+            </ssn>
+            <resp-prov>
+                Carl Savem
+            </resp-prov>
+            <referred-by>
+
+            </referred-by>
+            <email>
+
+            </email>
+            <home-loc>WeServeEveryone</home-loc>
+            <home-phone>444-444-4444</home-phone>
+            <office-phone></office-phone>
+            <fax></fax>
+            <status>Active</status>
+            <marital-status>Divorced</marital-status>
+            <race>Black</race>
+            <language>English</language>
+            <mrn>MR-111-1111</mrn>
+            <emp-status>Full-time</emp-status>
+            <sens-chart>No</sens-chart>
+            <external-id>MR-111-1111</external-id>
+        </paitient-info>
+        
+        <problems>
+            <problem>Diabetes Mellitus(ICD-250.)</problem>
+            <problem>Hypertension</problem>
+            <problem>Benign Essential (ICD-401.1)</problem>
+        </problems>
+
+        <medications>
+            <medication>
+                <name>Prinivil Tabs</name>
+                <size>20 Mg</size>
+
+            </medication>
+        </medications>
+
+        <directives>None.</directives>
+        <allergies-and-adverse-reactions>None</allergies-and-adverse-reactions>
+        <services-due>Flu Vax, Pneumovax, Microalb urn</services-due>
+        <office-visit>
+            <history-of-present-illness-reason-for-visit>Routine Follow up</history-of-present-illness-reason-for-visit>
+            <cheif-complaint>No complaints</cheif-complaint>
+        </office-visit>
+            <history>
+                <diabetes-management-hyperglycemic-symptoms-polyuria>no</diabetes-management-hyperglycemic-symptoms-polyuria>
+                <polydipsia>no</polydipsia>
+                <blurred-vision>no</blurred-vision>
+                <sympathomimetic-symptoms-diaphoresis>no</sympathomimetic-symptoms-diaphoresis>
+                <agitation>no</agitation>
+                <tremor>no</tremor>
+                <palpitations>no</palpitations>
+                <insomnia>no</insomnia>
+                <neuroglycopenic-symptoms-confusion>no</neuroglycopenic-symptoms-confusion>
+                <lethargy>no</lethargy>
+                <somnolence>no</somnolence>
+                <amnesia>no</amnesia>
+                <stupor>no</stupor>
+                <seizures>no</seizures>
+            </history>
+            <review-of-systems>
+                <general>Denies fatigue, malaise, fever, weight loss</general>
+                <eyes>denies blurring, diplopia, irritation, discharge</eyes>
+                <ent>denies ear pain or discharge, nasal obstruction or discharge, sor throat</ent>
+                <cardiovascular>denies chest pain, palpitations, paroxysmal nocturnal dyspnea, constipation</cardiovascular>
+                <respiratory>denies coughing, wheezing, dyspnea, hemoptysis</respiratory>
+                <gastrointestinal>denies abdominal pain, dysphagia, nausea, comiting, diarrhea. constipation</gastrointestinal>
+                <genitourinary>denies hematuria, frequency, urgency, dysuria, discharge, impotence, incontinece</genitourinary>
+                <musculoskeletal>dnies back pain, joint swlling, joint stiffness, joint pain</musculoskeletal>
+                <skin>denies rashes, itching, lumps, sores, lesions, color change</skin>
+                <neurologic>denies syncope, seizures, transient paralysis, weakness, paresthesias</neurologic>
+                <psychiatric>denies depression, anxiety, mental disturbance, difficulty sleeping, suicidal ideation, hallicinations, paranoia</psychiatric>
+                <endocrine>denies polyuria, polydispsia, polyphagia, weight change, heat or cold, intolerance</endocrine>
+                <lymphatic>denies easy or excessive bruising, history of blood transfusions, anemia, bleeding disorders, adenopathy, chills, sweats</lymphatic>
+                <immunologic>denies urticaria, hay fever, frequent utis; denies HIV high risk behaviors</immunologic>
+            </review-of-systems>
+            <vital-signs>
+                <height unit="inch">64</height>
+                <weight unit="pound">140</weight>
+                <temp unit="farenhiet" site="oral">98.0</temp>
+                <pulse>72</pulse>
+                <rhythm>regular</rhythm>
+                <blood-pressure>158/90</blood-pressure>
+            </vital-signs>
+
+            <physical-exam>
+                <general-appearance>well developed, well nourished, no acute distress</general-appearance>
+                <eyes>conjunctiva and libs normal, perrla, eomi, fundi wnl</eyes>
+                <ent>tm clear, nares clear, oral exam wnl</ent>
+                <respiratory>clear to ausculation and percussion, respiratory effort normal</respiratory>
+                <cardiovascular>regular rate and thythm, S1-S2, no murmur, rub or gallop, no bruits, peripheral pulses normal symmetric, no cyanosis, clubbing, edema or varicosities</cardiovascular>
+                <skin>clear, good turgor, color WNL, no rashes, lesions, or ulcerations</skin>
+                <problems>blood pressure is lower. feet are inspected and there are no callouses, no compromised skin. No Visions complaints</problems>
+                <impression>sub optimal sugar, control with retinopathy and neropathy, high glucometer readings. Will work harder on diet. Will increase insulin by 2 units.</impression>
+                <home-glucose-monitoring>
+                    <reading>AC Breakfast 110 - 220</reading>
+                    <reading>AC Breakfast mean 142</reading>
+                    <reading>AC Dinner 100 - 250</reading>
+                    <reading>AC Dinner mean 120</reading>
+                </home-glucose-monitoring>
+            </physical-exam>
+            <plan>
+                <medications>
+                    <medication>HUMULIN INJ 70/30 20 u ac breakfast</medication>
+                    <medication>PRINIVIL TABS 20 mg 1 qd</medication>
+                </medications>
+                <treatment>Will have annual foot exam at next visit</treatment>
+                <orders>UAMetabolic Panel</orders>
+                <education>5 minutes</education>
+                <coordination-of-care>20 minutes</coordination-of-care>
+                <follow-up>3 months</follow-up>
+                <disposition>return to clinic</disposition>
+            </plan>
+    </paitient>
+</emr>

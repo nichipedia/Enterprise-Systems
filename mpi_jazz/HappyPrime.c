@@ -1,3 +1,7 @@
+/*****************************************************************************************************
+**  Author: w0526207                                                                                **
+**  Date: 2/04/17                                                                                   **
+*****************************************************************************************************/                
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
@@ -64,29 +68,16 @@ int isHappy(int seq)
     return seq == 1;
 }
 
-short * happyGenerator()
-{
-    int n = log10(MAX) + 1;
-    int limit = 81*n;
-    int seq;
-    short * happyRef = malloc(sizeof(short)*limit);
-    for (int i = 0; i < limit; i++)
-    {
-        happyRef[i] = 0;
-    }
-    for (int i = 2; i < limit; i++)
-    {
-        happyRef[i] = isHappy(i);
-    }
-    return happyRef;
-}
-
 /******************************************************************************************************
 ** Main Function                                                                                     **
+** Instructions:                                                                                     **
+**  1) To compile use -std=c99 linker                                                                **
+**  2) On Leowulf the Please enter number prompt sometimes does not show up.                         **
+**     just enter the number and the program will run fine.                                          **
 ******************************************************************************************************/
 int main(int argc, char** argv)
 {
-    MPI_Init(NULL, NULL);
+    MPI_Init(&argc, &argv);
     int size, rank;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -100,33 +91,31 @@ int main(int argc, char** argv)
         clock_t begin = clock();
         short * primes = primeGenerator();
         unsigned n = (MAX/size);
-        for (int i = 2; i < n; i++)
+        for (unsigned i = 2; i < n; i++)
         {  
             if (primes[i] && isHappy(i))
             {
-                printf("Happy Prime: %d\n", i);
+                printf("Happy Prime from process %d: %d\n", rank, i);
             }
         }
-        MPI_Send(&n, 1, MPI_UNSIGNED, (rank+1)%size, 0, MPI_COMM_WORLD);
-        MPI_Recv(&n, 1, MPI_UNSIGNED, size - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Barrier(MPI_COMM_WORLD);
         clock_t end = clock();
         double exeTime = (double)(end - begin) / CLOCKS_PER_SEC;
         printf("Execution Time: %.2f seconds\n", exeTime);
     }
     else
     {
-        MPI_Recv(&MAX, 1, MPI_UNSIGNED, rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Bcast(&MAX, 1, MPI_UNSIGNED, 0, MPI_COMM_WORLD);
         short * primes = primeGenerator();
         unsigned n = (MAX/size);
-        for (int i = ((rank*n)+1); i < ((rank+1)*n); i++)
+        for (unsigned i = ((rank*n)+1); i < ((rank+1)*n); i++)
         {  
             if (primes[i] && isHappy(i))
             {
-                printf("Happy Prime: %d\n", i);
+                printf("Happy Prime from process %d: %d\n", rank, i);
             }
         }
-        MPI_Send(&n, 1, MPI_UNSIGNED, (rank+1)%size, 0, MPI_COMM_WORLD);
-        MPI_Recv(&n, 1, MPI_UNSIGNED, rank - 1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        MPI_Barrier(MPI_COMM_WORLD);
     }
     MPI_Finalize();
     return 0;
